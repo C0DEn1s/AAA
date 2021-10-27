@@ -42,3 +42,12 @@ if __name__ == '__main__':
     for line in count_matrix:
         print(line)
 
+    true_feature_names = ['crock', 'pot', 'pasta', 'never', 'boil', 'again', 'pomodoro', 'fresh', 'ingredients', 'parmesan', 'to', 'taste']
+    true_matrix = [[1, 1, 2, 1, 1, 1, 0, 0, 0, 0, 0, 0],
+                   [0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1]]
+
+    assert count_matrix == true_matrix
+    assert vectorizer.get_feature_names() == true_feature_names
+    assert CountVectorizer().get_feature_names() == []
+    assert CountVectorizer().fit_transform([]) == []
+
