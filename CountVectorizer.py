@@ -21,6 +21,7 @@ class CountVectorizer:
                 cnt_line[ind] += 1
             matrix.append(cnt_line)
 
+        self.count_matrix = matrix
         return matrix
 
     def get_feature_names(self):
