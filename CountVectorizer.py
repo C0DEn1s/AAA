@@ -1,9 +1,12 @@
 class CountVectorizer:
+    """
+    Class, which counts number of words in given sentences
+    """
     def __init__(self):
         self.unique_words = {}
         self.count_matrix = []
 
-    def fit_transform(self, data):
+    def fit_transform(self, data: list) -> list:
         ind = 0
         for sentence in data:
             for word in sentence.lower().split():
@@ -24,7 +27,7 @@ class CountVectorizer:
         self.count_matrix = matrix
         return matrix
 
-    def get_feature_names(self):
+    def get_feature_names(self) -> list:
         return list(self.unique_words.keys())
 
 
