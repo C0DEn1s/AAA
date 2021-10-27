@@ -14,7 +14,7 @@ class CountVectorizer:
         matrix = []
         num_of_words = len(self.unique_words)
 
-        for ind, sentence in enumerate(data):
+        for sentence in data:
             cnt_line = [0] * num_of_words
             for word in sentence.lower().split():
                 ind = self.unique_words[word]
