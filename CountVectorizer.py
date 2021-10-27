@@ -31,13 +31,14 @@ class CountVectorizer:
         return list(self.unique_words.keys())
 
 
-corpus = [
- 'Crock Pot Pasta Never boil pasta again',
- 'Pasta Pomodoro Fresh ingredients Parmesan to taste'
-]
-vectorizer = CountVectorizer()
-count_matrix = vectorizer.fit_transform(corpus)
-print(vectorizer.get_feature_names())
-for line in count_matrix:
-    print(line)
+if __name__ == '__main__':
+    corpus = [
+     'Crock Pot Pasta Never boil pasta again',
+     'Pasta Pomodoro Fresh ingredients Parmesan to taste'
+    ]
+    vectorizer = CountVectorizer()
+    count_matrix = vectorizer.fit_transform(corpus)
+    print(vectorizer.get_feature_names())
+    for line in count_matrix:
+        print(line)
 
