@@ -9,7 +9,7 @@ def show_teams():
     This function output to console hierarchy of teams
     :return:
     """
-    with open('./Corp Summary.csv', 'r') as f:
+    with open('./HW2/Corp_Summary.csv', 'r') as f:
         reader = csv.reader(f, delimiter=';')
         next(reader)
         hierarchy = {}
@@ -33,7 +33,7 @@ def depart_report(output: bool) -> dict:
     :param output: flag affecting printing
     :return: dict with the info
     """
-    with open('./Corp Summary.csv', 'r') as f:
+    with open('./HW2/Corp_Summary.csv', 'r') as f:
         reader = csv.reader(f, delimiter=';')
         next(reader)
         departments = []
