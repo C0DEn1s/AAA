@@ -12,6 +12,8 @@ class ObjectTransformer:
         for key, value in mapping.items():
             if iskeyword(key):
                 key += '_'
+            if key == 'price':
+                key = '_price'
             if isinstance(value, dict):
                 self.__dict__[key] = ObjectTransformer(value)
             else:
@@ -22,34 +24,34 @@ class ColorizeMixin:
     """
     Helps to change text color, the background color and add styles.
     """
-    def __init__(self, style=1, text_color=32, bg_color=40):
-        self.style = style
-        self.text_color = text_color
-        self.bg_color = bg_color
+    style = 1
+    text_color = 32
+    bg_color = 40
 
     def __str__(self):
-        return f'\033[{self.style};{self.text_color};{self.bg_color}m {self.__repr__()}'
+        return f'\033[{self.style};{self.text_color};{self.bg_color}m {self.__repr__()} \033[0m'
 
 
-class Advert(ColorizeMixin):
+class Advert(ColorizeMixin, ObjectTransformer):
     """
     The class of advertising that is initialized by json data format. It has one required field "title."
     """
     def __init__(self, mapping):
-        ColorizeMixin.__init__(self)
-        mapping_transformed = ObjectTransformer(mapping).__dict__
-        if 'title' not in mapping_transformed:
+        super().__init__(mapping)
+        if not hasattr(self, 'title'):
             raise ValueError('Field "title" is required.')
-        if 'price' in mapping_transformed:
-            self.price = mapping_transformed['price']
-        self.__dict__.update(mapping_transformed)
+        if hasattr(self, '_price'):
+            if not isinstance(self._price, (int, float)):
+                raise ValueError('Unsupported type of price.')
+            if self._price < 0:
+                raise ValueError('Price should be greater than 0.')
 
     def __repr__(self):
-        return f'{self.title} | {self._price} ₽'
+        return f'{self.title} | {self.price} ₽'
 
     @property
     def price(self):
-        return self.price
+        return self._price
 
     @price.setter
     def price(self, new_price):
@@ -65,10 +67,26 @@ if __name__ == '__main__':
         "location": {
             "address": "город Москва, Лесная, 7",
             "metro_stations": ["Белорусская"]
-        }
+        }      
     }"""
     lesson = json.loads(lesson_str)
     lesson_ad = Advert(lesson)
-    # обращаемся к атрибуту location.address
-    print(lesson_ad.location.address)
-    print(lesson_ad)
+    lesson_address = 'город Москва, Лесная, 7'
+    assert lesson_ad.location.address == lesson_address
+
+    keyword_str = """{
+            "title": "python",
+            "price": 100,
+            "location": {
+                "address": "город Москва, Лесная, 7",
+                "metro_stations": ["Белорусская"]
+            },
+            "class": "Key word"   
+        }"""
+    keyword_ad = json.loads(keyword_str)
+    keyword_check = Advert(keyword_ad)
+    class_key = 'Key word'
+    assert keyword_check.class_ == class_key
+
+    print(keyword_check)
+
