@@ -3,4 +3,6 @@
 
 Вводим `python -m pytest --cov .`
 
-Также можно ознакомиться с выводами в html-формате в директории htmlcov.
+Также можно ознакомиться с выводами в html-формате в директории htmlcov после вызова:
+
+`python -m pytest --cov . --cov-report html`
