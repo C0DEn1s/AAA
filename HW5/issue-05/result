@@ -1,0 +1,18 @@
+(venv) denis@denis-TM1701:~/PycharmProjects/odm/HW5/issue-05$ python -m pytest --cov
+======================================================================= test session starts ========================================================================
+platform linux -- Python 3.8.10, pytest-6.2.5, py-1.11.0, pluggy-1.0.0
+rootdir: /home/denis/PycharmProjects/odm/HW5/issue-05
+plugins: Faker-8.14.0, cov-3.0.0
+collected 5 items
+
+test_year.py .....                                                                                                                                           [100%]
+
+---------- coverage: platform linux, python 3.8.10-final-0 -----------
+Name           Stmts   Miss  Cover
+----------------------------------
+test_year.py      48      0   100%
+----------------------------------
+TOTAL             48      0   100%
+
+
+======================================================================== 5 passed in 0.13s =========================================================================

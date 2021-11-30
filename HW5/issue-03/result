@@ -1,0 +1,6 @@
+(venv) denis@denis-TM1701:~/PycharmProjects/odm$ python -m unittest HW5/issue-03/test_OHE.py
+....
+----------------------------------------------------------------------
+Ran 4 tests in 0.000s
+
+OK

@@ -1,11 +1,27 @@
+(venv) denis@denis-TM1701:~/PycharmProjects/odm$ python -m pytest HW5/issue-01.02/test_task.py
+======================================================================= test session starts ========================================================================
+platform linux -- Python 3.8.10, pytest-6.2.5, py-1.11.0, pluggy-1.0.0
+rootdir: /home/denis/PycharmProjects/odm
+plugins: Faker-8.14.0
+collected 3 items
+
+HW5/issue-01.02/test_task.py ...                                                                                                                             [100%]
+
+======================================================================== 3 passed in 0.06s =========================================================================
+
+Тут ниже вывод с плагинами PyCharm.
+
+/home/denis/PycharmProjects/odm/venv/bin/python /snap/pycharm-community/256/plugins/python-ce/helpers/pycharm/_jb_pytest_runner.py --path /home/denis/PycharmProjects/odm/HW5/issue-01.02/test_task.py
+Testing started at 0:20 ...
+Launching pytest with arguments /home/denis/PycharmProjects/odm/HW5/issue-01.02/test_task.py --no-header --no-summary -q in /home/denis/PycharmProjects/odm/HW5/issue-01.02
+
 ============================= test session starts ==============================
 collecting ... collected 3 items
 
-test_task.py::test_decode[... --- ...-SOS]
-test_task.py::test_decode[.... . .-.. .-.. ----HELLO]
-test_task.py::test_decode[.---- ..--- ...-- ....- ..... -.... --... ---.. ----.-123456789]
+test_task.py::test_decode[... --- ...-SOS] PASSED                        [ 33%]
+test_task.py::test_decode[.... . .-.. .-.. ----HELLO] PASSED             [ 66%]
+test_task.py::test_decode[.---- ..--- ...-- ....- ..... -.... --... ---.. ----.-123456789] PASSED [100%]
 
-============================== 3 passed in 0.09s ===============================
+============================== 3 passed in 0.04s ===============================
 
 Process finished with exit code 0
-PASSED                        [ 33%]PASSED             [ 66%]PASSED [100%]

@@ -1,33 +1,37 @@
 import unittest
 from typing import List, Tuple
 
+import pytest
 
-class TestOHE(unittest.TestCase):
-    def test_ohe(self):
-        actual = fit_transform(['Moscow', 'New York', 'Moscow', 'London'])
-        expected = [
-            ('Moscow', [0, 0, 1]),
-            ('New York', [0, 1, 0]),
-            ('Moscow', [0, 0, 1]),
-            ('London', [1, 0, 0])
-        ]
 
-        self.assertEqual(actual, expected)
+def test_ohe():
+    """Проверяет правильность работы по конкретному примеру"""
+    actual = fit_transform(['Moscow', 'New York', 'Moscow', 'London'])
+    expected = [
+        ('Moscow', [0, 0, 1]),
+        ('New York', [0, 1, 0]),
+        ('Moscow', [0, 0, 1]),
+        ('London', [1, 0, 0])
+    ]
 
-    def test_ex(self):
-        with self.assertRaises(TypeError):
-            fit_transform()
+    assert actual == expected
 
-    def test_1_arg(self):
-        actual = fit_transform('City')
-        expected = [('City', [1])]
 
-        self.assertEqual(actual, expected)
+def test_empty():
+    """Учитываем случай, когда не поданы параметры"""
+    with pytest.raises(TypeError):
+        fit_transform()
 
-    def test_in(self):
-        actual = fit_transform(['Moscow', 'New York', 'Moscow', 'London'])
 
-        self.assertIn(('Moscow', [0, 0, 1]), actual)
+def test_1_arg():
+    """Рассматриваем случай, когда только один аргумент"""
+    assert fit_transform('City') == [('City', [1])]
+
+
+def test_in():
+    """Проверяем вхождение конкретного параметра в результат функции"""
+    actual = fit_transform(['Moscow', 'New York', 'Moscow', 'London'])
+    assert ('Moscow', [0, 0, 1]) in actual
 
 
 def fit_transform(*args: str) -> List[Tuple[str, List[int]]]:
@@ -54,4 +58,4 @@ def fit_transform(*args: str) -> List[Tuple[str, List[int]]]:
 
 
 if __name__ == '__main__':
-    unittest.main()
+    pytest.main()

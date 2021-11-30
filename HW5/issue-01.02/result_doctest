@@ -1,4 +1,4 @@
-(venv) denis@denis-TM1701:~/PycharmProjects/odm$ python -m doctest -v -o NORMALIZE_WHITESPACE HW5/issue-01|02/test_task.py
+(venv) denis@denis-TM1701:~/PycharmProjects/odm$ python -m doctest -v -o NORMALIZE_WHITESPACE HW5/issue-01.02/test_task.py
 Trying:
     encode('SOS')
 Expecting:
