@@ -2,6 +2,7 @@ import pytest
 from unittest.mock import patch
 import urllib.request
 import json
+from io import StringIO
 
 
 API_URL = 'http://worldclockapi.com/api/json/utc/now'
@@ -17,10 +18,9 @@ DMY_YEAR_SLICE = slice(DMY_SEP_INDEX + 1, DMY_SEP_INDEX + 5)
 
 def test_ymd_format():
     """Проверяем правильность работы при формате YYYY-MM-DD"""
-    date = dict(currentDateTime='2021-11-30')
+    date = StringIO('{"currentDateTime": "2021-11-30"}')
     expected = 2021
-    with patch.object(urllib.request, 'urlopen'), \
-         patch.object(json, 'load', return_value=date):
+    with patch.object(urllib.request, 'urlopen', return_value=date):
         actual = what_is_year_now()
 
     assert actual == expected
@@ -28,10 +28,9 @@ def test_ymd_format():
 
 def test_dmy_format():
     """Проверяем правильность работы при формате DD.MM.YYYY"""
-    date = dict(currentDateTime='30.11.2021')
+    date = StringIO('{"currentDateTime": "30.11.2021"}')
     expected = 2021
-    with patch.object(urllib.request, 'urlopen'), \
-         patch.object(json, 'load', return_value=date):
+    with patch.object(urllib.request, 'urlopen', return_value=date):
         actual = what_is_year_now()
 
     assert actual == expected
@@ -39,27 +38,24 @@ def test_dmy_format():
 
 def test_wrong_format():
     """Учитываем случай с неверным форматом"""
-    date = dict(currentDateTime='2021/11/30')
-    with patch.object(urllib.request, 'urlopen'), \
-         patch.object(json, 'load', return_value=date):
+    date = StringIO('{"currentDateTime": "30/11/2021"}')
+    with patch.object(urllib.request, 'urlopen', return_value=date):
         with pytest.raises(ValueError):
             what_is_year_now()
 
 
 def test_wrong_key():
     """Учитываем случай с неверным ключом"""
-    date = dict(ordinalDate='2021-334')
-    with patch.object(urllib.request, 'urlopen'), \
-         patch.object(json, 'load', return_value=date):
+    date = StringIO('{"ordinalDate": "2021-11-30"}')
+    with patch.object(urllib.request, 'urlopen', return_value=date):
         with pytest.raises(KeyError):
             what_is_year_now()
 
 
 def test_wrong_value():
     """Учитываем случай с неверным значением"""
-    date = dict(currentDateTime='2021')
-    with patch.object(urllib.request, 'urlopen'), \
-         patch.object(json, 'load', return_value=date):
+    date = StringIO('{"currentDateTime": "2021"}')
+    with patch.object(urllib.request, 'urlopen', return_value=date):
         with pytest.raises(IndexError):
             what_is_year_now()
 
